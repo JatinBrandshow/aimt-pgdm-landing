@@ -108,8 +108,8 @@ const PlacementHighlights = () => {
                                         src={recruiter.image}
                                         alt={recruiter.name}
                                         width={100}
-                                        height={50}
-                                        className="object-contain w-auto h-10 grayscale hover:grayscale-0 transition duration-300"
+                                        height={100}
+                                        className="object-contain w-auto h-20 grayscale hover:grayscale-0 transition duration-300"
                                     />
                                 </div>
                             ))}
