@@ -1,0 +1,211 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
+
+const quickLinks = [
+    { label: "About Us", href: "#" },
+    { label: "PGDM Programme", href: "#" },
+    { label: "Admissions", href: "#" },
+    { label: "Placements", href: "#" },
+    { label: "Campus Life", href: "#" },
+    { label: "Contact Us", href: "#" },
+];
+
+const importantLinks = [
+    { label: "Scholarships", href: "#" },
+    { label: "Fee Structure", href: "#" },
+    { label: "Faculty", href: "#" },
+    { label: "Alumni", href: "#" },
+    { label: "Careers", href: "#" },
+    { label: "Privacy Policy", href: "#" },
+];
+
+const socialLinks = [
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { icon: Youtube, href: "#", label: "YouTube" },
+];
+
+const Footer = () => {
+    return (
+        <>
+            <footer className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Main Footer Content */}
+                    <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {/* About Section */}
+                        <div className="lg:col-span-1">
+                            <div className="mb-4">
+                                <h2 className="text-2xl text-white mb-2 font-semibold">Accurate Institute</h2>
+                                <p className="text-sm text-gray-400">Shaping Tomorrow&apos;s Leaders</p>
+                            </div>
+                            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                                A premier AICTE-approved institution offering world-class PGDM education with a focus on
+                                industry relevance and global exposure.
+                            </p>
+                            {/* Accreditation Badges */}
+                            import Image from "next/image";
+                            <div className="flex flex-wrap gap-3">
+                                {/* AICTE Logo */}
+                                <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
+                                    <Image
+                                        src="/image/accreditations/aicte.webp"
+                                        alt="AICTE Approved"
+                                        width={60}
+                                        height={40}
+                                        className="object-contain w-auto h-12"
+                                    />
+                                </div>
+
+                                {/* ISO Logo */}
+                                <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
+                                    <Image
+                                        src="/image/accreditations/iso.webp"
+                                        alt="ISO Certified"
+                                        width={60}
+                                        height={40}
+                                        className="object-contain w-auto h-12"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Quick Links */}
+                        <div>
+                            <h4 className="text-white mb-4 font-semibold">Quick Links</h4>
+                            <ul className="space-y-2">
+                                {quickLinks.map((link, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Important Links */}
+                        <div>
+                            <h4 className="text-white mb-4 font-semibold">Important Links</h4>
+                            <ul className="space-y-2">
+                                {importantLinks.map((link, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Contact Info */}
+                        <div>
+                            <h4 className="text-white mb-4 font-semibold">Contact Us</h4>
+                            <div className="space-y-3">
+                                <div className="flex items-start gap-3">
+                                    <MapPin className="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" />
+                                    <p className="text-gray-400 text-sm leading-relaxed">
+                                        49, Knowledge Park II,
+                                        <br />
+                                        Greater Noida, UP 201306
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <Phone className="w-5 h-5 text-yellow-400 shrink-0" />
+                                    <a
+                                        href="tel:+919999999999"
+                                        className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
+                                    >
+                                        +91-99999 99999
+                                    </a>
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <Mail className="w-5 h-5 text-yellow-400 shrink-0" />
+                                    <a
+                                        href="mailto:admissions@accurate.in"
+                                        className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
+                                    >
+                                        admissions@accurate.in
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Social Media */}
+                            <div className="mt-6">
+                                <h5 className="text-white text-sm mb-3 font-medium">Follow Us</h5>
+                                <div className="flex gap-2">
+                                    {socialLinks.map((social, index) => {
+                                        const Icon = social.icon;
+                                        return (
+                                            <a
+                                                key={index}
+                                                href={social.href}
+                                                aria-label={social.label}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-9 h-9 bg-white/10 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition-all duration-300 border border-white/20 hover:border-yellow-500 group"
+                                            >
+                                                <Icon className="w-4 h-4 text-gray-400 group-hover:text-gray-900" />
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bottom Bar */}
+                    <div className="border-t border-gray-700 py-6">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 px-4 gap-4">
+                            {/* Left Section – Copyright */}
+                            <div className="text-center md:text-left">
+                                <p>© 2025 Accurate Group of Institutions. All rights reserved.</p>
+                            </div>
+
+                            {/* Center Section – Designed by Brandshow */}
+                            <div className="text-center">
+                                <Link
+                                    href="https://brandshow.in/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-400 hover:text-yellow-400 transition-colors font-medium"
+                                >
+                                    Designed by{" "}
+                                    <span className="text-yellow-400 font-semibold hover:underline">Brandshow</span>
+                                </Link>
+                            </div>
+
+                            {/* Right Section – Policy Links */}
+                            <div className="flex flex-wrap justify-center md:justify-end gap-6">
+                                <Link href="#" className="hover:text-yellow-400 transition-colors">
+                                    Terms of Service
+                                </Link>
+                                <Link href="#" className="hover:text-yellow-400 transition-colors">
+                                    Privacy Policy
+                                </Link>
+                                <Link href="#" className="hover:text-yellow-400 transition-colors">
+                                    Cookie Policy
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </>
+    );
+};
+
+export default Footer;
