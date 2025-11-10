@@ -5,6 +5,7 @@ import ContactUs from "@/components/ContactUs";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import GlobalExposure from "@/components/GlobalExposure";
+import Header from "@/components/Header";
 import MainSection from "@/components/MainSection";
 import PlacementHighlights from "@/components/PlacementHighlights";
 import ProgrammeFeatures from "@/components/ProgrammeFeatures";
@@ -17,6 +18,7 @@ import React from "react";
 export const HomePage = () => {
     return (
         <>
+            <Header />
             <MainSection />
             <WhyChooseUs />
             <ProgrammeOverview />

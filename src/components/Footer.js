@@ -41,7 +41,16 @@ const Footer = () => {
                         {/* About Section */}
                         <div className="lg:col-span-1">
                             <div className="mb-4">
-                                <h2 className="text-2xl text-white mb-2 font-semibold">Accurate Institute</h2>
+                                {/* Logo replaces h2 */}
+                                <div className="mb-2">
+                                    <Image
+                                        src="/image/accurate-logo.webp"
+                                        alt="Accurate Institute Logo"
+                                        width={180}
+                                        height={60}
+                                        className="object-contain mx-auto sm:mx-0"
+                                    />
+                                </div>
                                 <p className="text-sm text-gray-400">Shaping Tomorrow&apos;s Leaders</p>
                             </div>
                             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
@@ -54,7 +63,7 @@ const Footer = () => {
                                 {/* AICTE Logo */}
                                 <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
                                     <Image
-                                        src="/image/accreditations/aicte.webp"
+                                        src="/image/accreditations/aicte-logo.webp"
                                         alt="AICTE Approved"
                                         width={60}
                                         height={40}
