@@ -7,19 +7,19 @@ import React from "react";
 const stats = [
     {
         icon: TrendingUp,
-        value: "₹85 LPA",
+        value: "₹1.3 CR",
         label: "Highest Package (International)",
         color: "from-green-500 to-emerald-500",
     },
     {
         icon: Building2,
-        value: "₹17 LPA",
+        value: "₹18 LPA",
         label: "Highest Package (Domestic)",
         color: "from-blue-500 to-cyan-500",
     },
     {
         icon: Target,
-        value: "₹7 LPA",
+        value: "₹7.8 LPA",
         label: "Average Package",
         color: "from-purple-500 to-violet-500",
     },

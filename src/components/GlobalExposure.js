@@ -44,7 +44,7 @@ const GlobalExposure = () => {
                 </div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-6 items-center">
+                    <div className="grid lg:grid-cols-2 gap-8 items-center">
                         {/* --- Left Content --- */}
                         <div className="space-y-8">
                             <div>
@@ -118,7 +118,7 @@ const GlobalExposure = () => {
                                     alt="Global Business Experience"
                                     width={600}
                                     height={500}
-                                    className="w-full h-[500px] object-cover"
+                                    className="w-full object-cover"
                                 />
                             </div>
 
