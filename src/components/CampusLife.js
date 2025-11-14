@@ -43,10 +43,10 @@ const CampusLife = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Section Header */}
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+                        {/* <div className="inline-flex items-center bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4">
                             <Award className="w-4 h-4 mr-2" />
                             Life @ Accurate (Campus & Infrastructure)
-                        </div>
+                        </div> */}
 
                         <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
                             A Green Campus Designed for Growth
@@ -98,7 +98,7 @@ const CampusLife = () => {
                     </div>
 
                     {/* Virtual Tour Section */}
-                    <div className="text-center bg-linear-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+                    {/* <div className="text-center bg-linear-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
                         <h3 className="text-2xl font-semibold text-gray-900 mb-3">Experience Our Campus Virtually</h3>
                         <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
                             Take a 360° virtual tour of our state-of-the-art facilities and see where your future
@@ -112,7 +112,7 @@ const CampusLife = () => {
                                 📸 View Photo Gallery
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </section>
         </>

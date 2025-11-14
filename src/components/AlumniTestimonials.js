@@ -86,14 +86,14 @@ const AlumniTestimonials = () => {
                     </div>
 
                     {/* Video CTA */}
-                    <div className="text-center">
+                    {/* <div className="text-center">
                         <button className="inline-flex items-center gap-3 bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group">
                             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                 <Play className="w-5 h-5 text-blue-600 ml-0.5" />
                             </div>
                             <span className="font-medium">Watch Alumni Success Stories</span>
                         </button>
-                    </div>
+                    </div> */}
 
                     {/* Stats */}
                     <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">

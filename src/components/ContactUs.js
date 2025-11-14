@@ -132,13 +132,13 @@ const ContactUs = () => {
                                 </div>
                             </div>
 
-                            <div className="bg-yellow-500 text-gray-900 rounded-xl p-6">
+                            {/* <div className="bg-yellow-500 text-gray-900 rounded-xl p-6">
                                 <div className="mb-2 font-semibold">⏰ Limited Time Offer</div>
                                 <p className="text-sm">
                                     Apply before <strong>November 30, 2025</strong> to avail early bird scholarship
                                     benefits!
                                 </p>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Right Section (Form) */}

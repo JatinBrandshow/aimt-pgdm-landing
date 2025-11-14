@@ -8,7 +8,7 @@ const destinations = [
     { name: "Singapore", image: "/image/global-exposure/flag/singapore.webp" },
     { name: "New Zealand", image: "/image/global-exposure/flag/new-zealand.webp" },
     { name: "Malaysia", image: "/image/global-exposure/flag/malaysia.webp" },
-    { name: "Thailand", image: "/image/global-exposure/flag/thailand.webp" },
+    // { name: "Thailand", image: "/image/global-exposure/flag/thailand.webp" },
 ];
 
 const benefits = [

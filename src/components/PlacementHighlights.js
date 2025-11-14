@@ -116,12 +116,12 @@ const PlacementHighlights = () => {
                         </div>
 
                         {/* Button Replacement */}
-                        <div className="text-center">
+                        {/* <div className="text-center">
                             <button className="inline-flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-md bg-white text-gray-800 hover:bg-gray-50 transition">
                                 <Building2 className="w-4 h-4" />
                                 View Complete Placement Report
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* --- Additional Stats --- */}

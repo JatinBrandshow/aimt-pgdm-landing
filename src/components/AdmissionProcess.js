@@ -144,17 +144,17 @@ const AdmissionProcess = () => {
                             Apply Now
                         </button>
 
-                        <button className="flex items-center gap-2 border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-all">
+                        {/* <button className="flex items-center gap-2 border border-gray-300 px-6 py-3 rounded-lg hover:bg-gray-50 text-gray-700 transition-all">
                             <Download className="w-5 h-5" />
                             Download Fee Structure
-                        </button>
+                        </button> */}
                     </div>
 
                     {/* Important Dates */}
                     <div className="mt-12 text-center">
                         <div className="inline-block bg-yellow-50 border border-yellow-200 rounded-xl p-6">
                             <p className="text-gray-700">
-                                <strong>🗓️ Important:</strong> Admissions for Batch 2025-27 are now open. Limited seats
+                                <strong>🗓️ Important:</strong> Admissions for Batch 2026-28 are now open. Limited seats
                                 available!
                             </p>
                         </div>

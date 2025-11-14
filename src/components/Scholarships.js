@@ -74,9 +74,8 @@ const Scholarships = () => {
                     </div>
 
                     {/* Scholarship Calculator CTA */}
-                    <div className="bg-linear-to-r from-yellow-500 to-orange-500 rounded-2xl p-8 md:p-12 shadow-2xl">
+                    {/* <div className="bg-linear-to-r from-yellow-500 to-orange-500 rounded-2xl p-8 md:p-12 shadow-2xl">
                         <div className="grid md:grid-cols-2 gap-8 items-center">
-                            {/* Text Section */}
                             <div className="text-white">
                                 <h3 className="text-2xl md:text-3xl font-bold mb-4">
                                     Check Your Scholarship Eligibility
@@ -101,7 +100,6 @@ const Scholarships = () => {
                                 </ul>
                             </div>
 
-                            {/* Form Section */}
                             <div className="bg-white rounded-xl p-8 shadow-xl">
                                 <div className="space-y-4">
                                     <div>
@@ -132,7 +130,7 @@ const Scholarships = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </section>
         </>
