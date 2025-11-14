@@ -102,7 +102,7 @@ const PlacementHighlights = () => {
                             {recruiters.map((recruiter, index) => (
                                 <div
                                     key={index}
-                                    className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-center justify-center min-h-20"
+                                    className="bg-white rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex items-center justify-center min-h-20 "
                                 >
                                     <Image
                                         src={recruiter.image}
