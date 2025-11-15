@@ -47,7 +47,7 @@ const Header = () => {
                 {/* Right: Contact Info */}
                 <div className="flex text-right text-base leading-tight text-black gap-5">
                     <p>
-                        <strong>Phone:</strong> +91 9560148370
+                        <strong>Phone:</strong> +91-98995 69090
                     </p>
                     <p>
                         <strong>Email:</strong> admissions@accurate.in

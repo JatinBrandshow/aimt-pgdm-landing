@@ -96,7 +96,7 @@ const FAQ = () => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a
-                                href="tel:+919999999999"
+                                href="tel:+91-98995 69090"
                                 className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all duration-300"
                             >
                                 📞 Call Us Now

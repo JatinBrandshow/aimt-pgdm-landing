@@ -19,34 +19,55 @@ const ContactUs = () => {
         fullName: "",
         mobile: "",
         email: "",
-        city: "",
-        specialisation: "",
+        program: "",
     });
 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!formData.fullName || !formData.mobile || !formData.email) {
+        if (!formData.fullName || !formData.mobile || !formData.email || !formData.program) {
             toast.error("Please fill in all required fields");
             return;
         }
 
-        console.log("Form submitted:", formData);
-        setIsSubmitted(true);
-        toast.success("Enquiry submitted successfully! Our team will contact you soon.");
-
-        setTimeout(() => {
-            setIsSubmitted(false);
-            setFormData({
-                fullName: "",
-                mobile: "",
-                email: "",
-                city: "",
-                specialisation: "",
+        try {
+            const res = await fetch("/api/submit-lead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: formData.fullName,
+                    mobile: formData.mobile,
+                    email: formData.email,
+                    course: formData.program,
+                    utm_medium: "",
+                    utm_campaign: "",
+                }),
             });
-        }, 3000);
+
+            const data = await res.json();
+
+            if (data.status === "success") {
+                toast.success("Enquiry submitted successfully! Our team will contact you soon.");
+                setIsSubmitted(true);
+
+                setTimeout(() => {
+                    setIsSubmitted(false);
+                    setFormData({
+                        fullName: "",
+                        mobile: "",
+                        email: "",
+                        program: "",
+                    });
+                }, 3000);
+            } else {
+                toast.error(data.error || "Something went wrong");
+            }
+        } catch (error) {
+            toast.error("Failed to submit enquiry");
+            console.error(error);
+        }
     };
 
     const handleChange = (field, value) => {
@@ -204,41 +225,24 @@ const ContactUs = () => {
                                             />
                                         </div>
 
-                                        {/* City */}
-                                        <div>
-                                            <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-                                                City
-                                            </label>
-                                            <input
-                                                id="city"
-                                                type="text"
-                                                placeholder="Enter your city"
-                                                value={formData.city}
-                                                onChange={(e) => handleChange("city", e.target.value)}
-                                                className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                                            />
-                                        </div>
-
-                                        {/* Select */}
+                                        {/* Program Select */}
                                         <div>
                                             <label
-                                                htmlFor="specialisation"
+                                                htmlFor="program"
                                                 className="block text-sm font-medium text-gray-700"
                                             >
-                                                Interested Specialisation
+                                                Program Interested *
                                             </label>
                                             <select
-                                                id="specialisation"
-                                                value={formData.specialisation}
-                                                onChange={(e) => handleChange("specialisation", e.target.value)}
+                                                id="program"
+                                                value={formData.program}
+                                                onChange={(e) => handleChange("program", e.target.value)}
+                                                required
                                                 className="mt-1 w-full border border-gray-300 rounded-md px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
                                             >
-                                                <option value="">Select specialisation</option>
-                                                {specialisations.map((spec, i) => (
-                                                    <option key={i} value={spec}>
-                                                        {spec}
-                                                    </option>
-                                                ))}
+                                                <option value="">Select Program</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="PGDM">PGDM</option>
                                             </select>
                                         </div>
                                     </div>
