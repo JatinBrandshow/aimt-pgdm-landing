@@ -28,7 +28,7 @@ const stats = [
 const recruiters = [
     { name: "Deloitte", image: "/image/placement/recruiters/deloitte.webp" },
     { name: "HDFC Bank", image: "/image/placement/recruiters/hdfc-bank.webp" },
-    { name: "KPMG", image: "/image/placement/recruiters/kpmg.webp" },
+    { name: "KPMG", image: "/image/placement/recruiters/KPMG.webp" },
     { name: "ICICI", image: "/image/placement/recruiters/icici.webp" },
     { name: "Amazon", image: "/image/placement/recruiters/amazon.webp" },
     { name: "Airtel", image: "/image/placement/recruiters/airtel.webp" },
