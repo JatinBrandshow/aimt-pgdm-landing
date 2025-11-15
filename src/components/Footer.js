@@ -58,7 +58,6 @@ const Footer = () => {
                                 industry relevance and global exposure.
                             </p>
                             {/* Accreditation Badges */}
-                            import Image from "next/image";
                             <div className="flex flex-wrap gap-3">
                                 {/* AICTE Logo */}
                                 <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
