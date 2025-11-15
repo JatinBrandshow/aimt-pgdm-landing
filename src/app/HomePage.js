@@ -12,14 +12,15 @@ import ProgrammeFeatures from "@/components/ProgrammeFeatures";
 import ProgrammeOverview from "@/components/ProgrammeOverview";
 import Scholarships from "@/components/Scholarships";
 import Specialisations from "@/components/Specialisations";
+import StickyApplyNow from "@/components/StickyApplyNow";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import React from "react";
 
 export const HomePage = () => {
     return (
         <>
-            <Header />
             <MainSection />
+            <StickyApplyNow />
             <WhyChooseUs />
             <ProgrammeOverview />
             <Specialisations />
@@ -32,7 +33,6 @@ export const HomePage = () => {
             <AdmissionProcess />
             <FAQ />
             <ContactUs />
-            <Footer />
         </>
     );
 };
