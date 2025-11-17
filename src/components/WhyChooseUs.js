@@ -54,14 +54,14 @@ const highlights = [
 const WhyChooseUs = () => {
     return (
         <>
-            <section className="py-12 bg-linear-to-b from-gray-50 to-white">
+            <section className="py-12 bg-linear-to-b from-gray-50 to-white max-md:py-10 max-sm:py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* --- Header --- */}
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    <div className="text-center mb-12 max-lg:mb-10 max-md:mb-8 max-sm:mb-6">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4 max-lg:text-3xl max-md:text-2xl max-sm:text-xl">
                             Why Students Choose Accurate for Their PGDM Journey
                         </h2>
-                        <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
+                        <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed max-sm:text-base">
                             At Accurate Institute of Management & Technology, we believe in nurturing leaders who can
                             make a global impact. Our industry-driven curriculum, international exposure, and dynamic
                             learning environment prepare you for tomorrow&apos;s business challenges.
@@ -69,13 +69,13 @@ const WhyChooseUs = () => {
                     </div>
 
                     {/* --- Highlights Grid --- */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-4 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4">
                         {highlights.map((highlight, index) => {
                             const Icon = highlight.icon;
                             return (
                                 <div
                                     key={index}
-                                    className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 hover:-translate-y-1 group"
+                                    className="bg-white rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 hover:-translate-y-1 group max-sm:p-4"
                                 >
                                     <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-md">
                                         <Icon className="w-6 h-6 text-white" />

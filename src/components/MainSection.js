@@ -40,17 +40,17 @@ const MainSection = () => {
                         </div>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <div className="flex gap-4 justify-center items-center">
                             <button
                                 onClick={scrollToForm}
-                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg shadow-md transition duration-300"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold rounded-lg shadow-md transition duration-300 max-sm:px-4 max-sm:py-2.5 max-sm:text-base"
                             >
                                 <GraduationCap className="w-5 h-5" />
                                 Apply Now
                                 <ArrowRight className="w-5 h-5" />
                             </button>
 
-                            <button className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg border border-white/30 backdrop-blur-sm transition duration-300">
+                            <button className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg border border-white/30 backdrop-blur-sm transition duration-300 max-sm:px-4 max-sm:py-2.5 max-sm:text-base">
                                 <Download className="w-5 h-5" />
                                 Download Brochure
                             </button>
