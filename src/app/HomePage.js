@@ -13,6 +13,7 @@ import ProgrammeOverview from "@/components/ProgrammeOverview";
 import Scholarships from "@/components/Scholarships";
 import Specialisations from "@/components/Specialisations";
 import StickyApplyNow from "@/components/StickyApplyNow";
+import VideoSlider from "@/components/VideoSlider";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import React from "react";
 
@@ -26,6 +27,7 @@ export const HomePage = () => {
             <Specialisations />
             <ProgrammeFeatures />
             <GlobalExposure />
+            <VideoSlider />
             <PlacementHighlights />
             <CampusLife />
             <Scholarships />

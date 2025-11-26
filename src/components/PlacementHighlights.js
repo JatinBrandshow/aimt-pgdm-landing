@@ -28,7 +28,7 @@ const stats = [
 const recruiters = [
     { name: "Deloitte", image: "/image/placement/recruiters/deloitte.webp" },
     { name: "HDFC Bank", image: "/image/placement/recruiters/hdfc-bank.webp" },
-    { name: "KPMG", image: "/image/placement/recruiters/KPMG.webp" },
+    { name: "KPMG", image: "/image/placement/recruiters/kpmg.webp" },
     { name: "ICICI", image: "/image/placement/recruiters/icici.webp" },
     { name: "Amazon", image: "/image/placement/recruiters/amazon.webp" },
     { name: "Airtel", image: "/image/placement/recruiters/airtel.webp" },
@@ -51,7 +51,7 @@ const PlacementHighlights = () => {
                     {/* --- Header --- */}
                     <div className="text-center mb-16">
                         {/* Badge Replacement */}
-                        <span className="inline-block mb-4 px-4 py-1 text-sm font-medium rounded-full bg-green-100 text-green-700">
+                        <span className="inline-block mb-4 px-4 py-1 text-base font-medium rounded-full bg-green-100 text-green-700">
                             Placement Cell
                         </span>
 

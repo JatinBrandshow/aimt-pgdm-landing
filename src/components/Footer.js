@@ -5,30 +5,12 @@ import Link from "next/link";
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
 
-const quickLinks = [
-    { label: "About Us", href: "#" },
-    { label: "PGDM Programme", href: "#" },
-    { label: "Admissions", href: "#" },
-    { label: "Placements", href: "#" },
-    { label: "Campus Life", href: "#" },
-    { label: "Contact Us", href: "#" },
-];
-
-const importantLinks = [
-    { label: "Scholarships", href: "#" },
-    { label: "Fee Structure", href: "#" },
-    { label: "Faculty", href: "#" },
-    { label: "Alumni", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-];
-
 const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/AccurateGrp/", label: "Facebook" },
+    { icon: Twitter, href: "https://www.twitter.com/AccurateGrp", label: "Twitter" },
+    { icon: Instagram, href: "https://www.instagram.com/AccurateCollege/", label: "Instagram" },
+    { icon: Linkedin, href: "https://www.linkedin.com/company/accurate-group-of-institutions", label: "LinkedIn" },
+    { icon: Youtube, href: "https://www.youtube.com/user/AccurateInstitute1", label: "YouTube" },
 ];
 
 const Footer = () => {
@@ -37,11 +19,11 @@ const Footer = () => {
             <footer className="bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Main Footer Content */}
-                    <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        
                         {/* About Section */}
                         <div className="lg:col-span-1">
                             <div className="mb-4">
-                                {/* Logo replaces h2 */}
                                 <div className="mb-2">
                                     <Image
                                         src="/image/accurate-logo.webp"
@@ -53,13 +35,14 @@ const Footer = () => {
                                 </div>
                                 <p className="text-sm text-gray-400">Shaping Tomorrow&apos;s Leaders</p>
                             </div>
+
                             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                                 A premier AICTE-approved institution offering world-class PGDM education with a focus on
                                 industry relevance and global exposure.
                             </p>
+
                             {/* Accreditation Badges */}
                             <div className="flex flex-wrap gap-3">
-                                {/* AICTE Logo */}
                                 <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
                                     <Image
                                         src="/image/accreditations/aicte-logo.webp"
@@ -70,7 +53,6 @@ const Footer = () => {
                                     />
                                 </div>
 
-                                {/* ISO Logo */}
                                 <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 flex items-center justify-center">
                                     <Image
                                         src="/image/accreditations/iso.webp"
@@ -81,40 +63,6 @@ const Footer = () => {
                                     />
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Quick Links */}
-                        <div>
-                            <h4 className="text-white mb-4 font-semibold">Quick Links</h4>
-                            <ul className="space-y-2">
-                                {quickLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Important Links */}
-                        <div>
-                            <h4 className="text-white mb-4 font-semibold">Important Links</h4>
-                            <ul className="space-y-2">
-                                {importantLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-gray-400 hover:text-yellow-400 transition-colors text-sm"
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
 
                         {/* Contact Info */}
@@ -178,7 +126,8 @@ const Footer = () => {
                     {/* Bottom Bar */}
                     <div className="border-t border-gray-700 py-6">
                         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 px-4 gap-4">
-                            {/* Left Section – Copyright */}
+                            
+                            {/* Left Section */}
                             <div className="text-center md:text-left">
                                 <p>© 2025 Accurate Group of Institutions. All rights reserved.</p>
                             </div>
@@ -196,18 +145,8 @@ const Footer = () => {
                                 </Link>
                             </div>
 
-                            {/* Right Section – Policy Links */}
-                            <div className="flex flex-wrap justify-center md:justify-end gap-6">
-                                <Link href="#" className="hover:text-yellow-400 transition-colors">
-                                    Terms of Service
-                                </Link>
-                                <Link href="#" className="hover:text-yellow-400 transition-colors">
-                                    Privacy Policy
-                                </Link>
-                                <Link href="#" className="hover:text-yellow-400 transition-colors">
-                                    Cookie Policy
-                                </Link>
-                            </div>
+                            {/* Right Section — removed per request */}
+                            <div className="hidden"></div>
                         </div>
                     </div>
                 </div>

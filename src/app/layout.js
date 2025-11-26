@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
     title: "Best Institute for PGDM in Greater Noida  Admission Open | Accurate Group of Institutions",
-    description: "Want to get admission in Best Institute for PGDM  Call now  9560148370 to Accurate Institute of Management   Technology  Greater Noida",
+    description: "Want to get admission in Best Institute for PGDM  Call now  9899569090 to Accurate Institute of Management   Technology  Greater Noida",
 };
 
 export default function RootLayout({ children }) {

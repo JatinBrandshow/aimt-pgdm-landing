@@ -50,10 +50,10 @@ const MainSection = () => {
                                 <ArrowRight className="w-5 h-5" />
                             </button>
 
-                            <button className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg border border-white/30 backdrop-blur-sm transition duration-300 max-sm:px-4 max-sm:py-2.5 max-sm:text-base">
+                            {/* <button className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg border border-white/30 backdrop-blur-sm transition duration-300 max-sm:px-4 max-sm:py-2.5 max-sm:text-base">
                                 <Download className="w-5 h-5" />
                                 Download Brochure
-                            </button>
+                            </button> */}
                         </div>
 
                         {/* Micro Highlights */}

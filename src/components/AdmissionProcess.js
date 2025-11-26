@@ -41,7 +41,7 @@ const AdmissionProcess = () => {
                     {/* Section Header */}
                     <div className="text-center mb-16">
                         <span className="inline-block mb-4 px-4 py-1.5 bg-blue-100 text-blue-700 text-sm font-medium rounded-full">
-                            Admissions 2025
+                            Admissions 2026
                         </span>
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                             Start Your Journey in Just 3 Steps
