@@ -1,117 +1,137 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { Clock, GraduationCap, MapPin } from "lucide-react";
-import gsap from "gsap";
+import { motion, useInView } from "framer-motion";
 
 const ProgrammeOverview = () => {
-    const countRef = useRef(null);
-    const leftRef = useRef(null);
-    const rightRef = useRef(null);
-    const factRefs = useRef([]);
-    const floatRef = useRef(null);
-    const imgRef = useRef(null);
-
-    useEffect(() => {
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-        // Slide in left content
-        tl.from(leftRef.current, {
-            x: -80,
-            opacity: 0,
-            duration: 1.2,
-        });
-
-        // Slide in right content
-        tl.from(
-            rightRef.current,
-            {
-                x: 80,
-                opacity: 0,
-                duration: 1.2,
-            },
-            "-=0.8"
-        );
-
-        // Start counter AFTER slides
-        tl.add(() => {
-            let obj = { val: 0 };
-            gsap.to(obj, {
-                val: 20,
-                duration: 2,
-                ease: "power3.out",
-                onUpdate: () => {
-                    if (countRef.current) {
-                        countRef.current.innerText = Math.floor(obj.val);
-                    }
-                },
-                onComplete: () => {
-                    // Floating left-right movement AFTER counter completes
-                    gsap.to(floatRef.current, {
-                        x: 20,
-                        duration: 2,
-                        yoyo: true,
-                        repeat: -1,
-                        ease: "power1.inOut",
-                    });
-                },
-            });
-        });
-
-        // Fact cards scale in
-        factRefs.current.forEach((el, i) => {
-            tl.from(
-                el,
-                {
-                    scale: 0.8,
-                    opacity: 0,
-                    duration: 0.6,
-                },
-                "-=1.4"
-            );
-        });
-    }, []);
-
-    // Parallax image hover
-    const handleMouseMove = (e) => {
-        const rect = imgRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to(imgRef.current, {
-            rotateY: x * 6,
-            rotateX: -y * 6,
-            duration: 0.4,
-        });
-    };
-
-    const handleMouseLeave = () => {
-        gsap.to(imgRef.current, {
-            rotateX: 0,
-            rotateY: 0,
-            duration: 0.4,
-        });
-    };
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { 
+        once: false, 
+        margin: "-100px",
+        amount: 0.3
+    });
 
     return (
-        <section className="py-16 bg-white relative overflow-hidden">
-            {/* Gradient blob behind image */}
-            <div className="absolute right-0 top-10 w-[350px] h-[350px] bg-blue-500/20 blur-[120px] rounded-full"></div>
+        <section ref={sectionRef} className="py-16 bg-white relative overflow-hidden">
+            {/* Animated Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(37,99,235,0.08),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(234,179,8,0.08),transparent_50%)]" />
+            </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Grid Pattern with Layering */}
+            <div className="absolute inset-0" style={{ zIndex: 1 }}>
+                {/* Primary Grid */}
+                <div
+                    className="absolute inset-0 opacity-20"
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(37, 99, 235, 0.15) 1px, transparent 1px),
+                                       linear-gradient(90deg, rgba(37, 99, 235, 0.15) 1px, transparent 1px)`,
+                        backgroundSize: "60px 60px",
+                    }}
+                />
+
+                {/* Secondary Grid - Smaller */}
+                <div
+                    className="absolute inset-0 opacity-10"
+                    style={{
+                        backgroundImage: `linear-gradient(rgba(234, 179, 8, 0.2) 1px, transparent 1px),
+                                       linear-gradient(90deg, rgba(234, 179, 8, 0.2) 1px, transparent 1px)`,
+                        backgroundSize: "20px 20px",
+                    }}
+                />
+            </div>
+
+            {/* Subtle Floating Shapes */}
+            <motion.div
+                className="absolute top-20 left-10 w-32 h-32 border border-blue-300/30 rounded-full opacity-20"
+                style={{ zIndex: 2 }}
+                animate={{ y: [0, -15, 0] }}
+                transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
+
+            <motion.div
+                className="absolute top-40 right-20 w-24 h-24 border border-yellow-300/30 rounded-lg opacity-20"
+                style={{ zIndex: 2 }}
+                animate={{ y: [0, 15, 0] }}
+                transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 1,
+                }}
+            />
+
+            <motion.div
+                className="absolute bottom-20 left-1/4 w-16 h-16 border border-blue-400/30 opacity-25 rounded-full"
+                style={{ zIndex: 2 }}
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 2,
+                }}
+            />
+
+            {/* Minimal Floating Dots */}
+            {[...Array(6)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className={`absolute w-1.5 h-1.5 rounded-full opacity-20 ${
+                        i % 2 === 0 ? "bg-blue-400" : "bg-yellow-400"
+                    }`}
+                    style={{
+                        left: `${20 + i * 15}%`,
+                        top: `${30 + (i % 3) * 20}%`,
+                        zIndex: 2,
+                    }}
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                        duration: 3 + i * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.5,
+                    }}
+                />
+            ))}
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 10 }}>
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     {/* LEFT CONTENT */}
-                    <div ref={leftRef} className="space-y-6">
-                        <h2 className="text-4xl font-bold text-gray-900 max-lg:text-3xl">About the PGDM Programme</h2>
+                    <motion.div 
+                        className="space-y-6"
+                        initial={{ x: -100, opacity: 0 }}
+                        animate={isInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    >
+                        <motion.h2 
+                            className="text-4xl font-bold text-gray-900 max-lg:text-3xl"
+                            initial={{ x: -50, opacity: 0 }}
+                            animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                        >
+                            About the PGDM Programme
+                        </motion.h2>
 
-                        <p className="text-gray-600 text-lg leading-relaxed">
+                        <motion.p 
+                            className="text-gray-600 text-lg leading-relaxed"
+                            initial={{ x: -50, opacity: 0 }}
+                            animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
                             The <strong>Post Graduate Diploma in Management (PGDM)</strong> is a two-year, full-time
                             program approved by the
                             <strong> AICTE, Ministry of Education, Govt. of India.</strong>
                             Designed with inputs from industry leaders, the programme blends academic rigor with
                             practical corporate exposure.
-                        </p>
+                        </motion.p>
 
                         {/* QUICK FACTS */}
                         <div className="grid grid-cols-3 gap-4 pt-6 max-sm:grid-cols-1">
@@ -132,22 +152,29 @@ const ProgrammeOverview = () => {
                                     value: "Greater Noida, UP",
                                 },
                             ].map((item, i) => (
-                                <div
+                                <motion.div
                                     key={i}
-                                    ref={(el) => (factRefs.current[i] = el)}
                                     className="backdrop-blur-md bg-white/50 rounded-xl p-6 border border-gray-200 shadow-lg"
+                                    initial={{ y: 50, opacity: 0 }}
+                                    animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.6 + i * 0.1 }}
                                 >
                                     <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mb-3">
                                         {item.icon}
                                     </div>
                                     <div className="text-xs text-gray-500 mb-1">{item.label}</div>
                                     <div className="text-gray-900 font-medium">{item.value}</div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
 
                         {/* AICTE Badge */}
-                        <div className="flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-lg p-4 shadow">
+                        <motion.div 
+                            className="flex items-center gap-3 bg-yellow-50 border border-yellow-200 rounded-lg p-4 shadow"
+                            initial={{ y: 30, opacity: 0 }}
+                            animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+                            transition={{ duration: 0.6, delay: 1 }}
+                        >
                             <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center shrink-0">
                                 <GraduationCap className="w-6 h-6 text-white" />
                             </div>
@@ -157,17 +184,21 @@ const ProgrammeOverview = () => {
                                     Recognized by Ministry of Education, Government of India
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
                     {/* RIGHT IMAGE */}
-                    <div
-                        ref={rightRef}
+                    <motion.div
                         className="relative"
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={handleMouseLeave}
+                        initial={{ x: 100, opacity: 0 }}
+                        animate={isInView ? { x: 0, opacity: 1 } : { x: 100, opacity: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        <div ref={imgRef} className="relative rounded-2xl overflow-hidden shadow-2xl transform-gpu">
+                        <motion.div 
+                            className="relative rounded-2xl overflow-hidden shadow-2xl"
+                            whileHover={{ scale: 1.02 }}
+                            transition={{ duration: 0.3 }}
+                        >
                             <Image
                                 src="/image/pgdm-girl-1.webp"
                                 alt="PGDM Classroom"
@@ -175,19 +206,26 @@ const ProgrammeOverview = () => {
                                 height={500}
                                 className="w-full h-[500px] object-cover"
                             />
-                        </div>
+                        </motion.div>
 
                         {/* Floating counter */}
-                        <div
-                            ref={floatRef}
+                        <motion.div
                             className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 border border-gray-100"
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                            transition={{ duration: 0.6, delay: 0.8 }}
                         >
-                            <div ref={countRef} className="text-4xl font-bold text-blue-600 mb-1">
-                                0+
-                            </div>
+                            <motion.div 
+                                className="text-4xl font-bold text-blue-600 mb-1"
+                                initial={{ scale: 0 }}
+                                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                                transition={{ duration: 0.5, delay: 1.2 }}
+                            >
+                                20+
+                            </motion.div>
                             <div className="text-sm text-gray-600">Years of Excellence</div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </div>
         </section>

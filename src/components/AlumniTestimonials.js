@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Quote } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { Quote, Users, Globe, Award } from "lucide-react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -80,6 +80,46 @@ const testimonials = [
     },
 ];
 
+const CountingNumber = ({ end, suffix = "", duration = 2000 }) => {
+    const [count, setCount] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+    const ref = useRef();
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !isVisible) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.3 }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => observer.disconnect();
+    }, [isVisible]);
+
+    useEffect(() => {
+        if (!isVisible) return;
+
+        let startTime;
+        const animate = (currentTime) => {
+            if (!startTime) startTime = currentTime;
+            const progress = Math.min((currentTime - startTime) / duration, 1);
+            setCount(Math.floor(progress * end));
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        requestAnimationFrame(animate);
+    }, [end, duration, isVisible]);
+
+    return <span ref={ref}>{count}{suffix}</span>;
+};
+
 const AlumniTestimonials = () => {
     return (
         <section className="py-12 bg-linear-to-b from-white to-gray-50">
@@ -150,20 +190,56 @@ const AlumniTestimonials = () => {
                 </Swiper>
 
                 {/* Stats */}
-                <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div className="text-center p-6 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                        <div className="text-4xl text-blue-600 font-bold mb-2">5000+</div>
-                        <div className="text-gray-600">Global Alumni Network</div>
+                <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div className="relative bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <Users className="w-8 h-8 text-white" />
+                                </div>
+                            </div>
+                            <div className="pt-6 text-center">
+                                <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+                                    <CountingNumber end={5000} suffix="+" />
+                                </div>
+                                <div className="text-gray-600 font-medium">Global Alumni Network</div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className="text-center p-6 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                        <div className="text-4xl text-blue-600 font-bold mb-2">50+</div>
-                        <div className="text-gray-600">Countries Worldwide</div>
+                    
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div className="relative bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <Globe className="w-8 h-8 text-white" />
+                                </div>
+                            </div>
+                            <div className="pt-6 text-center">
+                                <div className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-3">
+                                    <CountingNumber end={50} suffix="+" />
+                                </div>
+                                <div className="text-gray-600 font-medium">Countries Worldwide</div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div className="text-center p-6 bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                        <div className="text-4xl text-blue-600 font-bold mb-2">Top 100</div>
-                        <div className="text-gray-600">Fortune Companies</div>
+                    
+                    <div className="relative group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div className="relative bg-white rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <Award className="w-8 h-8 text-white" />
+                                </div>
+                            </div>
+                            <div className="pt-6 text-center">
+                                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+                                    <CountingNumber end={100} suffix="" />
+                                </div>
+                                <div className="text-gray-600 font-medium">Top Fortune Companies</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
