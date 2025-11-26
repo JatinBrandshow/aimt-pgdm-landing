@@ -32,41 +32,36 @@ const faqs = [
   {
     question: "What is the fee structure?",
     answer:
-      "The fee varies based on program & scholarships. Download our brochure or contact the admission office for detailed fee information.",
+      "The fee varies based on program & scholarships. Contact the admission office for detailed fee info.",
   },
   {
     question: "Are laptops provided to students?",
     answer:
-      "Yes, every PGDM student receives a personal laptop as part of the program to ensure seamless digital learning and project work throughout the course.",
+      "Yes, every PGDM student receives a personal laptop for digital learning & project work.",
   },
   {
     question: "What specializations are offered?",
     answer:
-      "We offer seven specializations: Marketing Management, Finance Management, Business Analytics, Human Resource Management, International Business, Operations & Supply Chain Management, and Banking & Financial Services. Students can choose dual specializations.",
+      "Marketing, Finance, Business Analytics, HRM, International Business, Operations, BFSI. Dual specialization available.",
   },
   {
     question: "Is there an international study tour?",
     answer:
-      "Yes, our Global Immersion Study Tour is a highlight of the PGDM program. Students visit international destinations like Singapore, Dubai, or Malaysia to gain exposure to global business practices and interact with industry leaders.",
+      "Yes, global immersion tours include Singapore, Dubai, Malaysia for international exposure.",
   },
   {
     question: "What is the duration of the program?",
     answer:
-      "The PGDM is a 2-year full-time program divided into four semesters. The program includes classroom learning, internships, live projects, and a capstone project in the final year.",
+      "The PGDM is a 2-year full-time program with 4 semesters, internships & a capstone project.",
   },
 ];
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [visibleItems, setVisibleItems] = useState(faqs.map((_, i) => i));
-  const itemRefs = useRef([]);
+
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { 
-    once: false, 
-    margin: "-100px",
-    amount: 0.3
-  });
+  const isInView = useInView(sectionRef, { once: false, amount: 0.3 });
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -77,26 +72,6 @@ const FAQ = () => {
       faq.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
       faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.dataset.index);
-            setVisibleItems((prev) => [...new Set([...prev, index])]);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    itemRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [filteredFaqs]);
 
   return (
     <>
@@ -162,96 +137,68 @@ const FAQ = () => {
             placeholder="Search questions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-6 py-4 bg-white border border-blue-200 rounded-2xl shadow-sm"
+            className="w-full px-6 py-4 text-black bg-white border border-blue-200 rounded-2xl shadow-sm"
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
             🔍
           </div>
         </motion.div>
 
-        {/* FAQ List */}
-        <div className="max-w-4xl mx-auto">
+        {/* ============== FAQ LIST ============== */}
+        <div className="max-w-4xl mx-auto relative z-10">
           {filteredFaqs.length === 0 ? (
             <div className="w-full text-center py-20">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-blue-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.562M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />
-                </svg>
-              </div>
               <p className="text-gray-600 text-lg">
                 No questions found. Try a different search term.
               </p>
             </div>
           ) : (
-            <motion.div 
-              className="space-y-4"
+            <motion.div
+              className="space-y-6"
               initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 1 }}
             >
               {filteredFaqs.map((faq, index) => {
                 const isOpen = openIndex === index;
+
                 return (
                   <motion.div
                     key={index}
-                    ref={(el) => (itemRefs.current[index] = el)}
-                    data-index={index}
-                    className="backdrop-blur-md bg-white/80 border border-blue-200/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
-                    transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
-                    whileHover={{ y: -2 }}
+                    className="bg-white border border-blue-100 rounded-2xl hover:shadow-lg transition-all"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.4, delay: 1.1 + index * 0.1 }}
                   >
-                    <motion.button
+                    <button
                       onClick={() => toggleFAQ(index)}
-                      className="w-full p-6 text-left flex justify-between items-start gap-4 hover:bg-blue-50/50 transition-colors"
-                      whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+                      className="w-full p-6 flex justify-between items-start"
                     >
-                      <motion.span 
-                        className="text-blue-900 font-semibold text-lg flex-1"
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={isInView ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }}
-                        transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
-                      >
-                        {faq.question}
-                      </motion.span>
-                      <motion.div
-                        className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold shadow-md flex-shrink-0"
+                      <span className="text-blue-900 font-semibold text-lg">
+                        {index + 1}. {faq.question}
+                      </span>
+
+                      <motion.span
                         animate={{ rotate: isOpen ? 45 : 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center"
                       >
                         +
-                      </motion.div>
-                    </motion.button>
-                    
+                      </motion.span>
+                    </button>
+
                     <motion.div
                       initial={false}
                       animate={{
                         height: isOpen ? "auto" : 0,
                         opacity: isOpen ? 1 : 0,
                       }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <motion.div 
-                        className="px-6 pb-6 text-gray-700 leading-relaxed border-t border-blue-100/50"
-                        initial={{ y: -10, opacity: 0 }}
-                        animate={isOpen ? { y: 0, opacity: 1 } : { y: -10, opacity: 0 }}
-                        transition={{ duration: 0.3, delay: isOpen ? 0.1 : 0 }}
-                      >
-                        <div className="pt-4">{faq.answer}</div>
-                      </motion.div>
+                      <div className="px-6 pb-6 pt-2 text-gray-700">
+                        {faq.answer}
+                      </div>
                     </motion.div>
                   </motion.div>
                 );
@@ -260,47 +207,28 @@ const FAQ = () => {
           )}
         </div>
 
-        {/* Contact Section */}
+        {/* ============== CONTACT ============== */}
         <motion.div
           className="mt-20 text-center"
-          initial={{ y: 50, opacity: 0 }}
-          animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
-          transition={{ duration: 0.8, delay: 2 }}
+          initial={{ x: 100, opacity: 0 }}
+          animate={isInView ? { x: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.5 }}
         >
-          <motion.div 
-            className="backdrop-blur-md bg-white/90 border border-blue-200/50 p-12 rounded-3xl shadow-2xl"
-            whileHover={{ y: -5 }}
-            transition={{ duration: 0.3 }}
-          >
-            <motion.h3 
-              className="text-3xl font-bold text-blue-900 mb-4"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.6, delay: 2.2 }}
-            >
+          <div className="bg-white border border-blue-200 p-12 rounded-3xl shadow-lg">
+            <h3 className="text-3xl font-bold text-blue-900 mb-4">
               Need More <span className="text-yellow-500">Help?</span>
-            </motion.h3>
-            <motion.p 
-              className="text-gray-600 mb-8 text-lg"
-              initial={{ y: 20, opacity: 0 }}
-              animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
-              transition={{ duration: 0.6, delay: 2.4 }}
-            >
-              Our admission experts are standing by to guide you through the process.
-            </motion.p>
-            <motion.a
+            </h3>
+            <p className="text-gray-600 mb-8 text-lg">
+              Our admission experts are standing by to guide you.
+            </p>
+
+            <a
               href="tel:+91-9899569090"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all font-medium"
-              initial={{ scale: 0 }}
-              animate={isInView ? { scale: 1 } : { scale: 0 }}
-              transition={{ duration: 0.5, delay: 2.6 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-blue-500 text-white rounded-2xl shadow-md hover:bg-blue-600"
             >
-              <span className="text-xl">📞</span>
-              Call Now: +91-9899569090
-            </motion.a>
-          </motion.div>
+              📞 Call Now
+            </a>
+          </div>
         </motion.div>
       </section>
     </>
