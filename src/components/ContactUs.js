@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Phone, Mail, MessageSquare, Send, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
+import { motion, useInView } from "framer-motion";
 
 const specialisations = [
     "Marketing Management",
@@ -15,6 +16,13 @@ const specialisations = [
 ];
 
 const ContactUs = () => {
+    const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { 
+        once: false, 
+        margin: "-100px",
+        amount: 0.3
+    });
+
     const [formData, setFormData] = useState({
         fullName: "",
         mobile: "",
@@ -77,37 +85,147 @@ const ContactUs = () => {
     return (
         <>
             <section
+                ref={sectionRef}
                 id="enquiry-form"
-                className="py-20 bg-linear-to-r from-blue-600 via-indigo-600 to-blue-700 relative overflow-hidden"
+                className="py-20 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-900 relative overflow-hidden"
             >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                        }}
-                    ></div>
+                {/* Animated Gradient Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-indigo-900 to-blue-900">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.08),transparent_50%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(234,179,8,0.08),transparent_50%)]" />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                {/* Grid Pattern with Layering */}
+                <div className="absolute inset-0" style={{ zIndex: 1 }}>
+                    <div
+                        className="absolute inset-0 opacity-10"
+                        style={{
+                            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+                                           linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)`,
+                            backgroundSize: "60px 60px",
+                        }}
+                    />
+                    <div
+                        className="absolute inset-0 opacity-5"
+                        style={{
+                            backgroundImage: `linear-gradient(rgba(234, 179, 8, 0.2) 1px, transparent 1px),
+                                           linear-gradient(90deg, rgba(234, 179, 8, 0.2) 1px, transparent 1px)`,
+                            backgroundSize: "20px 20px",
+                        }}
+                    />
+                </div>
+
+                {/* Subtle Floating Shapes */}
+                <motion.div
+                    className="absolute top-20 left-10 w-32 h-32 border border-white/20 rounded-full opacity-20"
+                    style={{ zIndex: 2 }}
+                    animate={{ y: [0, -15, 0] }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                    }}
+                />
+
+                <motion.div
+                    className="absolute top-40 right-20 w-24 h-24 border border-yellow-300/30 rounded-lg opacity-20"
+                    style={{ zIndex: 2 }}
+                    animate={{ y: [0, 15, 0] }}
+                    transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1,
+                    }}
+                />
+
+                <motion.div
+                    className="absolute bottom-20 left-1/4 w-16 h-16 border border-white/30 opacity-25 rounded-full"
+                    style={{ zIndex: 2 }}
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 2,
+                    }}
+                />
+
+                {/* Minimal Floating Dots */}
+                {[...Array(6)].map((_, i) => (
+                    <motion.div
+                        key={i}
+                        className={`absolute w-1.5 h-1.5 rounded-full opacity-20 ${
+                            i % 2 === 0 ? "bg-white" : "bg-yellow-400"
+                        }`}
+                        style={{
+                            left: `${20 + i * 15}%`,
+                            top: `${30 + (i % 3) * 20}%`,
+                            zIndex: 2,
+                        }}
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{
+                            duration: 3 + i * 0.5,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: i * 0.5,
+                        }}
+                    />
+                ))}
+
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ zIndex: 10 }}>
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
                         {/* Left Section */}
-                        <div className="text-white space-y-8">
+                        <motion.div 
+                            className="text-white space-y-8"
+                            initial={{ x: -100, opacity: 0 }}
+                            animate={isInView ? { x: 0, opacity: 1 } : { x: -100, opacity: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                        >
                             <div>
-                                <div className="inline-block bg-yellow-500 text-gray-900 px-4 py-2 rounded-full mb-4">
+                                <motion.span 
+                                    className="inline-block mb-4 px-4 py-1 text-sm font-medium rounded-full bg-yellow-500 text-gray-900"
+                                    initial={{ scale: 0 }}
+                                    animate={isInView ? { scale: 1 } : { scale: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                >
                                     🎓 Take the First Step
-                                </div>
-                                <h2 className="text-white mb-4 text-3xl font-semibold">Ready to Take the Next Step?</h2>
-                                <p className="text-blue-100 text-lg">
+                                </motion.span>
+
+                                <motion.h2 
+                                    className="text-white mb-4 text-3xl font-semibold"
+                                    initial={{ x: -50, opacity: 0 }}
+                                    animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.4 }}
+                                >
+                                    Ready to Take the Next Step?
+                                </motion.h2>
+
+                                <motion.p 
+                                    className="text-blue-100 text-lg"
+                                    initial={{ x: -50, opacity: 0 }}
+                                    animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.6 }}
+                                >
                                     Fill out the enquiry form and our admission counselors will get in touch with you to
                                     guide you through the admission process.
-                                </p>
+                                </motion.p>
                             </div>
 
                             {/* Contact Info */}
-                            <div className="space-y-4">
-                                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                            <motion.div 
+                                className="space-y-4"
+                                initial={{ y: 30, opacity: 0 }}
+                                animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
+                                transition={{ duration: 0.6, delay: 0.8 }}
+                            >
+                                <motion.div 
+                                    className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20"
+                                    initial={{ y: 50, opacity: 0 }}
+                                    animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 1.0 }}
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
                                         <Phone className="w-6 h-6 text-white" />
                                     </div>
@@ -120,9 +238,15 @@ const ContactUs = () => {
                                             +91-98995 69090
                                         </a>
                                     </div>
-                                </div>
+                                </motion.div>
 
-                                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                                <motion.div 
+                                    className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20"
+                                    initial={{ y: 50, opacity: 0 }}
+                                    animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 1.1 }}
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
                                         <MessageSquare className="w-6 h-6 text-white" />
                                     </div>
@@ -135,9 +259,15 @@ const ContactUs = () => {
                                             +91-92205 08941
                                         </a>
                                     </div>
-                                </div>
+                                </motion.div>
 
-                                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                                <motion.div 
+                                    className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20"
+                                    initial={{ y: 50, opacity: 0 }}
+                                    animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+                                    transition={{ duration: 0.6, delay: 1.2 }}
+                                    whileHover={{ scale: 1.02 }}
+                                >
                                     <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center shrink-0">
                                         <Mail className="w-6 h-6 text-white" />
                                     </div>
@@ -150,20 +280,17 @@ const ContactUs = () => {
                                             admissions@accurate.in
                                         </a>
                                     </div>
-                                </div>
-                            </div>
-
-                            {/* <div className="bg-yellow-500 text-gray-900 rounded-xl p-6">
-                                <div className="mb-2 font-semibold">⏰ Limited Time Offer</div>
-                                <p className="text-sm">
-                                    Apply before <strong>November 30, 2025</strong> to avail early bird scholarship
-                                    benefits!
-                                </p>
-                            </div> */}
-                        </div>
+                                </motion.div>
+                            </motion.div>
+                        </motion.div>
 
                         {/* Right Section (Form) */}
-                        <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                        <motion.div 
+                            className="bg-white rounded-2xl p-8 shadow-2xl"
+                            initial={{ x: 100, opacity: 0 }}
+                            animate={isInView ? { x: 0, opacity: 1 } : { x: 100, opacity: 0 }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                        >
                             {!isSubmitted ? (
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div>
@@ -271,7 +398,7 @@ const ContactUs = () => {
                                     </p>
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
