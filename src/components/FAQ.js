@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { motion, useInView } from "framer-motion";
 
 const faqs = [
   {
@@ -11,27 +12,27 @@ const faqs = [
   {
     question: "Is hostel facility available on campus?",
     answer:
-      "Yes, we have separate hostels for boys and girls with all modern amenities including Wi-Fi, mess facility, recreational areas, and 24/7 security. The hostels are located within the campus for convenience.",
+      "Yes, we have separate hostels for boys and girls with all modern amenities including Wi-Fi, mess facility, recreational areas, and 24/7 security.",
   },
   {
     question: "Do you provide placement assistance?",
     answer:
-      "Absolutely! We provide 100% placement support through our Corporate Resource Centre. This includes pre-placement training, resume building, mock interviews, internship opportunities, and direct interaction with recruiters.",
+      "Absolutely! We provide 100% placement support through our Corporate Resource Centre with training, mock interviews, internships, and direct recruiter interaction.",
   },
   {
     question: "What is the admission process?",
     answer:
-      "The admission process involves three simple steps: 1) Fill the online application form, 2) Appear for Group Discussion and Personal Interview (GD-PI), and 3) Receive admission offer and confirm your seat.",
+      "The process involves: 1) Fill online form, 2) GD/PI round, 3) Receive offer & confirm your seat.",
   },
   {
     question: "Which entrance exam scores are accepted?",
     answer:
-      "We accept scores from CAT, MAT, XAT, CMAT, ATMA, and GMAT. Students without entrance exam scores can also apply and will be evaluated through our internal assessment process.",
+      "We accept CAT, MAT, XAT, CMAT, ATMA, GMAT. Students without scores can apply via internal assessment.",
   },
   {
     question: "What is the fee structure?",
     answer:
-      "The fee structure varies based on the program and scholarships awarded. We offer various merit-based and need-based scholarships that can reduce your fee significantly. Please download our brochure or contact the admission office for detailed fee information.",
+      "The fee varies based on program & scholarships. Download our brochure or contact the admission office for detailed fee information.",
   },
   {
     question: "Are laptops provided to students?",
@@ -58,8 +59,14 @@ const faqs = [
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [visibleItems, setVisibleItems] = useState([]);
+  const [visibleItems, setVisibleItems] = useState(faqs.map((_, i) => i));
   const itemRefs = useRef([]);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { 
+    once: false, 
+    margin: "-100px",
+    amount: 0.3
+  });
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -93,273 +100,208 @@ const FAQ = () => {
 
   return (
     <>
-      <section className="py-20 bg-slate-50 relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-30"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-100 rounded-full blur-3xl opacity-30"></div>
-        </div>
+      <section ref={sectionRef} className="py-20 relative overflow-hidden">
+        {/* ============== Background Layer ============== */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50" />
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_20%,rgba(37,99,235,0.1),transparent_60%)]" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Header */}
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-2 mb-6 px-6 py-3 bg-yellow-100 border border-yellow-200 rounded-full">
-              <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-              <span className="text-blue-700 text-sm font-medium">
-                Live Support Available
-              </span>
-            </div>
-            <h2 className="text-5xl sm:text-7xl font-black text-blue-900 mb-6 tracking-tight">
-              FAQ<span className="text-yellow-500">s</span>
-            </h2>
-            <p className="text-gray-600 text-xl max-w-2xl mx-auto">
-              Everything you need to know about our PGDM program
-            </p>
+        {/* Floating Shapes */}
+        <motion.div
+          className="absolute top-20 left-10 w-32 h-32 border border-blue-300/30 rounded-full opacity-20"
+          animate={{ y: [0, -15, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+
+        {/* ============== Header ============== */}
+        <motion.div
+          className="text-center mb-20 relative z-10"
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            className="inline-flex items-center gap-2 mb-6 px-6 py-3 bg-yellow-100 border border-yellow-200 rounded-full"
+            initial={{ scale: 0 }}
+            animate={isInView ? { scale: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+            <span className="text-blue-700 text-sm font-medium">
+              Live Support Available
+            </span>
+          </motion.div>
+
+          <motion.h2
+            className="text-5xl sm:text-7xl font-black text-blue-900 mb-6"
+            initial={{ x: -50, opacity: 0 }}
+            animate={isInView ? { x: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            FAQ<span className="text-yellow-500">s</span>
+          </motion.h2>
+
+          <motion.p
+            className="text-gray-600 text-xl max-w-2xl mx-auto"
+            initial={{ x: -50, opacity: 0 }}
+            animate={isInView ? { x: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.6 }}
+          >
+            Everything you need to know about our PGDM program
+          </motion.p>
+        </motion.div>
+
+        {/* ============== Search Bar ============== */}
+        <motion.div
+          className="relative mb-16 max-w-lg mx-auto"
+          initial={{ y: 30, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <input
+            type="text"
+            placeholder="Search questions..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full px-6 py-4 bg-white border border-blue-200 rounded-2xl shadow-sm"
+          />
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+            🔍
           </div>
+        </motion.div>
 
-          {/* Search Bar */}
-          <div className="relative mb-16 max-w-lg mx-auto">
-            <input
-              type="text"
-              placeholder="Search questions..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-6 py-4 bg-white border border-blue-200 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-300 shadow-sm"
-            />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2">
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-          </div>
-
-          {/* FAQ Grid */}
-          <div className="flex flex-col md:flex-row gap-6">
-            {filteredFaqs.length === 0 ? (
-              <div className="w-full text-center py-20">
-                <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-8 h-8 text-blue-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.562M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                    />
-                  </svg>
-                </div>
-                <p className="text-gray-600 text-lg">
-                  No questions found. Try a different search term.
-                </p>
+        {/* FAQ List */}
+        <div className="max-w-4xl mx-auto">
+          {filteredFaqs.length === 0 ? (
+            <div className="w-full text-center py-20">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-8 h-8 text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.562M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
               </div>
-            ) : (
-              <>
-                <div className="flex-1 space-y-6">
-                  {filteredFaqs.filter((_, index) => index % 2 === 0).map((faq, originalIndex) => {
-                    const index = originalIndex * 2;
-                    const isOpen = openIndex === index;
-                    const isVisible = visibleItems.includes(index);
-                    return (
-                      <div
-                        key={index}
-                        ref={(el) => (itemRefs.current[index] = el)}
-                        data-index={index}
-                        className={`group cursor-pointer transform transition-all duration-700 ${
-                          isVisible
-                            ? "translate-y-0 opacity-100"
-                            : "translate-y-8 opacity-0"
-                        }`}
-                        style={{ transitionDelay: `${index * 100}ms` }}
-                      >
-                        <div className="bg-white border border-blue-100 rounded-2xl overflow-hidden hover:border-blue-300 hover:shadow-lg transition-all duration-300">
-                          <button
-                            onClick={() => toggleFAQ(index)}
-                            className="w-full text-left p-6 flex justify-between items-start gap-4 hover:bg-blue-50 transition-all duration-300"
-                          >
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                                  {index + 1}
-                                </div>
-                                <span className="text-blue-900 font-semibold text-lg">
-                                  {faq.question}
-                                </span>
-                              </div>
-                            </div>
-                            <div
-                              className={`w-8 h-8 flex items-center justify-center rounded-full bg-yellow-100 transition-all duration-500 ${
-                                isOpen ? "rotate-45 bg-yellow-200" : "rotate-0"
-                              }`}
-                            >
-                              <svg
-                                className="w-4 h-4 text-yellow-600"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                />
-                              </svg>
-                            </div>
-                          </button>
-                          <div
-                            className={`overflow-hidden transition-all duration-500 ease-out ${
-                              isOpen
-                                ? "max-h-96 opacity-100"
-                                : "max-h-0 opacity-0"
-                            }`}
-                          >
-                            <div className="px-6 pb-6">
-                              <div className="w-full h-px bg-blue-100 mb-4"></div>
-                              <p className="text-gray-700 leading-relaxed text-base">
-                                {faq.answer}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="flex-1 space-y-6">
-                  {filteredFaqs.filter((_, index) => index % 2 === 1).map((faq, originalIndex) => {
-                    const index = originalIndex * 2 + 1;
-                    const isOpen = openIndex === index;
-                    const isVisible = visibleItems.includes(index);
-                    return (
-                      <div
-                        key={index}
-                        ref={(el) => (itemRefs.current[index] = el)}
-                        data-index={index}
-                        className={`group cursor-pointer transform transition-all duration-700 ${
-                          isVisible
-                            ? "translate-y-0 opacity-100"
-                            : "translate-y-8 opacity-0"
-                        }`}
-                        style={{ transitionDelay: `${index * 100}ms` }}
-                      >
-                        <div className="bg-white border border-blue-100 rounded-2xl overflow-hidden hover:border-blue-300 hover:shadow-lg transition-all duration-300">
-                          <button
-                            onClick={() => toggleFAQ(index)}
-                            className="w-full text-left p-6 flex justify-between items-start gap-4 hover:bg-blue-50 transition-all duration-300"
-                          >
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                                  {index + 1}
-                                </div>
-                                <span className="text-blue-900 font-semibold text-lg">
-                                  {faq.question}
-                                </span>
-                              </div>
-                            </div>
-                            <div
-                              className={`w-8 h-8 flex items-center justify-center rounded-full bg-yellow-100 transition-all duration-500 ${
-                                isOpen ? "rotate-45 bg-yellow-200" : "rotate-0"
-                              }`}
-                            >
-                              <svg
-                                className="w-4 h-4 text-yellow-600"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                />
-                              </svg>
-                            </div>
-                          </button>
-                          <div
-                            className={`overflow-hidden transition-all duration-500 ease-out ${
-                              isOpen
-                                ? "max-h-96 opacity-100"
-                                : "max-h-0 opacity-0"
-                            }`}
-                          >
-                            <div className="px-6 pb-6">
-                              <div className="w-full h-px bg-blue-100 mb-4"></div>
-                              <p className="text-gray-700 leading-relaxed text-base">
-                                {faq.answer}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Contact Section */}
-          <div className="mt-20 text-center">
-            <div className="bg-white border border-blue-200 rounded-3xl p-12 shadow-lg">
-              <h3 className="text-3xl font-bold text-blue-900 mb-4">
-                Need More <span className="text-yellow-500">Help?</span>
-              </h3>
-              <p className="text-gray-600 mb-8 text-lg max-w-2xl mx-auto">
-                Our admission experts are standing by to guide you through
-                your journey
+              <p className="text-gray-600 text-lg">
+                No questions found. Try a different search term.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="tel:+91-98995 69090"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  <span className="flex items-center gap-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                    </svg>
-                    Call Now
-                  </span>
-                </a>
-                <a
-                  href="mailto:admissions@accurate.in"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-yellow-400 hover:bg-yellow-500 text-blue-900 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  <span className="flex items-center gap-2">
-                    <svg
-                      className="w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                      <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                    </svg>
-                    Send Email
-                  </span>
-                </a>
-              </div>
             </div>
-          </div>
+          ) : (
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.8, delay: 1 }}
+            >
+              {filteredFaqs.map((faq, index) => {
+                const isOpen = openIndex === index;
+                return (
+                  <motion.div
+                    key={index}
+                    ref={(el) => (itemRefs.current[index] = el)}
+                    data-index={index}
+                    className="backdrop-blur-md bg-white/80 border border-blue-200/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
+                    transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                  >
+                    <motion.button
+                      onClick={() => toggleFAQ(index)}
+                      className="w-full p-6 text-left flex justify-between items-start gap-4 hover:bg-blue-50/50 transition-colors"
+                      whileHover={{ backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+                    >
+                      <motion.span 
+                        className="text-blue-900 font-semibold text-lg flex-1"
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={isInView ? { x: 0, opacity: 1 } : { x: -20, opacity: 0 }}
+                        transition={{ duration: 0.5, delay: 1.4 + index * 0.1 }}
+                      >
+                        {faq.question}
+                      </motion.span>
+                      <motion.div
+                        className="w-8 h-8 bg-gradient-to-br from-yellow-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold shadow-md flex-shrink-0"
+                        animate={{ rotate: isOpen ? 45 : 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        whileHover={{ scale: 1.1 }}
+                      >
+                        +
+                      </motion.div>
+                    </motion.button>
+                    
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isOpen ? "auto" : 0,
+                        opacity: isOpen ? 1 : 0,
+                      }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <motion.div 
+                        className="px-6 pb-6 text-gray-700 leading-relaxed border-t border-blue-100/50"
+                        initial={{ y: -10, opacity: 0 }}
+                        animate={isOpen ? { y: 0, opacity: 1 } : { y: -10, opacity: 0 }}
+                        transition={{ duration: 0.3, delay: isOpen ? 0.1 : 0 }}
+                      >
+                        <div className="pt-4">{faq.answer}</div>
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          )}
         </div>
+
+        {/* Contact Section */}
+        <motion.div
+          className="mt-20 text-center"
+          initial={{ y: 50, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : { y: 50, opacity: 0 }}
+          transition={{ duration: 0.8, delay: 2 }}
+        >
+          <motion.div 
+            className="backdrop-blur-md bg-white/90 border border-blue-200/50 p-12 rounded-3xl shadow-2xl"
+            whileHover={{ y: -5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.h3 
+              className="text-3xl font-bold text-blue-900 mb-4"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.6, delay: 2.2 }}
+            >
+              Need More <span className="text-yellow-500">Help?</span>
+            </motion.h3>
+            <motion.p 
+              className="text-gray-600 mb-8 text-lg"
+              initial={{ y: 20, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
+              transition={{ duration: 0.6, delay: 2.4 }}
+            >
+              Our admission experts are standing by to guide you through the process.
+            </motion.p>
+            <motion.a
+              href="tel:+91-9899569090"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all font-medium"
+              initial={{ scale: 0 }}
+              animate={isInView ? { scale: 1 } : { scale: 0 }}
+              transition={{ duration: 0.5, delay: 2.6 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="text-xl">📞</span>
+              Call Now: +91-9899569090
+            </motion.a>
+          </motion.div>
+        </motion.div>
       </section>
     </>
   );
