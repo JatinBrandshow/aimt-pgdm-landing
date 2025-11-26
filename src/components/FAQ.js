@@ -73,6 +73,11 @@ const FAQ = () => {
       faq.answer.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Split FAQs into two columns
+  const midPoint = Math.ceil(filteredFaqs.length / 2);
+  const leftColumnFaqs = filteredFaqs.slice(0, midPoint);
+  const rightColumnFaqs = filteredFaqs.slice(midPoint);
+
   return (
     <>
       <section ref={sectionRef} className="py-20 relative overflow-hidden">
@@ -89,7 +94,7 @@ const FAQ = () => {
 
         {/* ============== Header ============== */}
         <motion.div
-          className="text-center mb-20 relative z-10"
+          className="text-center mb-10 relative z-10"
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -145,7 +150,7 @@ const FAQ = () => {
         </motion.div>
 
         {/* ============== FAQ LIST ============== */}
-        <div className="max-w-4xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10 px-4">
           {filteredFaqs.length === 0 ? (
             <div className="w-full text-center py-20">
               <p className="text-gray-600 text-lg">
@@ -153,81 +158,158 @@ const FAQ = () => {
               </p>
             </div>
           ) : (
-            <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 1 }}
-            >
-              {filteredFaqs.map((faq, index) => {
-                const isOpen = openIndex === index;
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left Column */}
+              <motion.div
+                className="space-y-6"
+                initial={{ opacity: 0, x: -40 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, delay: 1 }}
+              >
+                {leftColumnFaqs.map((faq, index) => {
+                  const globalIndex = index;
+                  const isOpen = openIndex === globalIndex;
 
-                return (
-                  <motion.div
-                    key={index}
-                    className="bg-white border border-blue-100 rounded-2xl hover:shadow-lg transition-all"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.4, delay: 1.1 + index * 0.1 }}
-                  >
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className="w-full p-6 flex justify-between items-start"
-                    >
-                      <span className="text-blue-900 font-semibold text-lg">
-                        {index + 1}. {faq.question}
-                      </span>
-
-                      <motion.span
-                        animate={{ rotate: isOpen ? 45 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center"
-                      >
-                        +
-                      </motion.span>
-                    </button>
-
+                  return (
                     <motion.div
-                      initial={false}
-                      animate={{
-                        height: isOpen ? "auto" : 0,
-                        opacity: isOpen ? 1 : 0,
-                      }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
+                      key={globalIndex}
+                      className="bg-white border border-blue-100 rounded-2xl hover:shadow-xl transition-all duration-300 hover:border-blue-300"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 1.1 + index * 0.1 }}
+                      whileHover={{ y: -2 }}
                     >
-                      <div className="px-6 pb-6 pt-2 text-gray-700">
-                        {faq.answer}
-                      </div>
+                      <button
+                        onClick={() => toggleFAQ(globalIndex)}
+                        className={`w-full p-6 flex justify-between items-start text-left transition-all duration-300 ${
+                          isOpen ? 'bg-gradient-to-r from-blue-50 to-yellow-50' : ''
+                        }`}
+                      >
+                        <span className={`font-semibold text-lg pr-4 transition-colors duration-300 ${
+                          isOpen ? 'text-blue-700' : 'text-blue-900'
+                        }`}>
+                          {globalIndex + 1}. {faq.question}
+                        </span>
+
+                        <motion.span
+                          animate={{ rotate: isOpen ? 45 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 transition-all duration-300 ${
+                            isOpen ? 'bg-blue-500 text-white' : 'bg-yellow-100 text-blue-600'
+                          }`}
+                        >
+                          +
+                        </motion.span>
+                      </button>
+
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          height: isOpen ? "auto" : 0,
+                          opacity: isOpen ? 1 : 0,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 pt-2 text-gray-700 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
                     </motion.div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+                  );
+                })}
+              </motion.div>
+
+              {/* Right Column */}
+              <motion.div
+                className="space-y-6"
+                initial={{ opacity: 0, x: 40 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, delay: 1.2 }}
+              >
+                {rightColumnFaqs.map((faq, index) => {
+                  const globalIndex = midPoint + index;
+                  const isOpen = openIndex === globalIndex;
+
+                  return (
+                    <motion.div
+                      key={globalIndex}
+                      className="bg-white border border-blue-100 rounded-2xl hover:shadow-xl transition-all duration-300 hover:border-blue-300"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={isInView ? { opacity: 1, y: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 1.3 + index * 0.1 }}
+                      whileHover={{ y: -2 }}
+                    >
+                      <button
+                        onClick={() => toggleFAQ(globalIndex)}
+                        className={`w-full p-6 flex justify-between items-start text-left transition-all duration-300 ${
+                          isOpen ? 'bg-gradient-to-r from-blue-50 to-yellow-50' : ''
+                        }`}
+                      >
+                        <span className={`font-semibold text-lg pr-4 transition-colors duration-300 ${
+                          isOpen ? 'text-blue-700' : 'text-blue-900'
+                        }`}>
+                          {globalIndex + 1}. {faq.question}
+                        </span>
+
+                        <motion.span
+                          animate={{ rotate: isOpen ? 45 : 0 }}
+                          transition={{ duration: 0.3 }}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center font-bold flex-shrink-0 transition-all duration-300 ${
+                            isOpen ? 'bg-blue-500 text-white' : 'bg-yellow-100 text-blue-600'
+                          }`}
+                        >
+                          +
+                        </motion.span>
+                      </button>
+
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          height: isOpen ? "auto" : 0,
+                          opacity: isOpen ? 1 : 0,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 pt-2 text-gray-700 leading-relaxed">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </div>
           )}
         </div>
 
         {/* ============== CONTACT ============== */}
         <motion.div
-          className="mt-20 text-center"
-          initial={{ x: 100, opacity: 0 }}
-          animate={isInView ? { x: 0, opacity: 1 } : {}}
+          className="mt-20 text-center relative z-20 px-4"
+          initial={{ y: 50, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 1.5 }}
         >
-          <div className="bg-white border border-blue-200 p-12 rounded-3xl shadow-lg">
-            <h3 className="text-3xl font-bold text-blue-900 mb-4">
+          <div className="bg-gradient-to-r from-blue-50 to-yellow-50 border-2 border-blue-200 p-12 rounded-3xl shadow-xl max-w-2xl mx-auto backdrop-blur-sm">
+            <motion.h3 
+              className="text-3xl font-bold text-blue-900 mb-4"
+              whileHover={{ scale: 1.05 }}
+            >
               Need More <span className="text-yellow-500">Help?</span>
-            </h3>
-            <p className="text-gray-600 mb-8 text-lg">
+            </motion.h3>
+            <p className="text-gray-700 mb-8 text-lg">
               Our admission experts are standing by to guide you.
             </p>
 
-            <a
+            <motion.a
               href="tel:+91-9899569090"
-              className="px-8 py-4 bg-blue-500 text-white rounded-2xl shadow-md hover:bg-blue-600"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
             >
               📞 Call Now
-            </a>
+            </motion.a>
           </div>
         </motion.div>
       </section>
